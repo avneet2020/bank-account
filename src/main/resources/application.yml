@@ -1,0 +1,7 @@
+spring:
+  jpa:
+    database:
+      username:
+      paswsord:
+      database: bank
+

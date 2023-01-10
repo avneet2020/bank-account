@@ -1,5 +1,7 @@
 package com.avneet.bankaccount;
 
+import java.text.NumberFormat;
+
 public class BankAccountHandler {
     BankAccountDao dao;
 
@@ -20,16 +22,18 @@ public class BankAccountHandler {
         boolean result = dao.changeBalance(bank.getName(), newTotal);
         if(result) {
             bank.setBalance(newTotal);
-            System.out.println("Transaction Success!");
+            System.out.println("Deposit Success!");
         }
     }
 
     public void withdraw(BankAccount bank, double amount) {
-
-        if (amount < 0) {
-            System.out.println("Cannot withdraw negative money. Try Again.");
-
-        } else if (amount > bank.getBalance()) {
+        if (amount == 0){
+            System.out.println("Cannot Withdraw no Money. Try Again");
+        }
+        else if (amount < 0) {
+            System.out.println("Cannot Withdraw Negative Money. Try Again.");
+        }
+        else if (amount > bank.getBalance()) {
             System.out.println("Insufficient funds.");
 
         } else {
@@ -38,6 +42,7 @@ public class BankAccountHandler {
             if(result) {
                 bank.setBalance(newTotal);
                 System.out.println("Transaction Success!");
+                System.out.println("You have withdrawn: " + NumberFormat.getCurrencyInstance().format(amount));
             }
 
         }
