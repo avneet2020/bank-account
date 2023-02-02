@@ -1,17 +1,26 @@
 package com.avneet.bankaccount;
 
 class BankAccount {
-
-    private String name;
+    private final String username;
+    private String fname;
+    private String lname;
     private double balance;
 
-    public BankAccount(String name, double balance) {
+    public BankAccount(String username, String fname, String lname, double balance) {
+        this.username = username;
+        this.fname = fname;
+        this.lname = lname;
         this.balance = balance;
-        this.name = name;
     }
 
-    public String getName() {
-        return this.name;
+    public String getFname() {
+        return this.fname;
+    }
+    public String getLname() {
+        return this.lname;
+    }
+    public String getName(){
+        return fname + " " + lname;
     }
 
     public double getBalance() {
@@ -24,7 +33,7 @@ class BankAccount {
 
     @Override
     public String toString() {
-        String s = "Name: " + name + "\nBalance: $" + balance;
+        String s = "Name: " + fname + " " + lname + "\nBalance: $" + balance;
         return s;
 
     }

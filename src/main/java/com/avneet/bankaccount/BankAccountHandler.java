@@ -13,13 +13,13 @@ public class BankAccountHandler {
         return dao.logIn(username, password);
     }
 
-    public BankAccount registerUser(String username, String password, String name, String email) {
-        return dao.register(username, password, name, email);
+    public BankAccount registerUser(String username, String password, String fname, String lname, String email) {
+        return dao.register(username, password, fname, lname, email);
     }
 
     public void deposit(BankAccount bank, double amount) {
         double newTotal = bank.getBalance() + amount;
-        boolean result = dao.changeBalance(bank.getName(), newTotal);
+        boolean result = dao.changeBalance(bank.getFname(), newTotal);
         if(result) {
             bank.setBalance(newTotal);
             System.out.println("Deposit Success!");
@@ -38,7 +38,7 @@ public class BankAccountHandler {
 
         } else {
             double newTotal = (bank.getBalance() - amount);
-            boolean result = dao.changeBalance(bank.getName(),newTotal);
+            boolean result = dao.changeBalance(bank.getFname(),newTotal);
             if(result) {
                 bank.setBalance(newTotal);
                 System.out.println("Transaction Success!");
