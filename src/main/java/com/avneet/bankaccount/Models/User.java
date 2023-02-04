@@ -1,5 +1,4 @@
 package com.avneet.bankaccount.Models;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -18,6 +17,7 @@ public class User {
     private String password;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
+    @JsonIgnoreProperties("user")
     private Customer customer;
 
 

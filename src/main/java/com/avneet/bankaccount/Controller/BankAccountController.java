@@ -1,17 +1,13 @@
 package com.avneet.bankaccount.Controller;
 
-import com.avneet.bankaccount.Models.Customer;
-import com.avneet.bankaccount.Models.User;
-import com.avneet.bankaccount.Repo.CustomerRepo;
-import com.avneet.bankaccount.Repo.UserRepo;
-import com.avneet.bankaccount.Response.Response;
+import com.avneet.bankaccount.Models.*;
+import com.avneet.bankaccount.Repo.*;
+import com.avneet.bankaccount.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BankAccountController {
@@ -24,20 +20,58 @@ public class BankAccountController {
 
     @GetMapping(value = "/")
     public String GetPage() {
-        return "Hello, World!";
+        return "Welcome to the Bank";
     }
 
     @GetMapping(value = "/users")
-    public List<Customer> getCustomers() {
-        return customerRepo.findAll();
+    public List<User> getUsers() {
+        return userRepo.findAll();
     }
 
     @PostMapping(value = "/save")
-    public String saveUser(@RequestBody Response response) {
-        Customer customer = new Customer(response.getFirstName(), response.getLastName(), response.getEmail());
-        User user = new User(response.getUsername(), response.getPassword(), customer);
+    public int saveUser(@RequestBody SaveDTO response) {
+        Customer customer = new Customer(response.firstName(), response.lastName(), response.email());
+        User user = new User(response.username(), response.password(), customer);
         customer.setUser(user);
         userRepo.save(user);
-        return "is all goo";
+        return 200;
     }
+
+    @GetMapping(value = "/login")
+    public Customer login(@RequestBody LoginDTO response) {
+        Optional<Customer> customerOptional =
+                Optional.ofNullable(userRepo.findByUsernameAndPassword(response.username(), response.password()).getCustomer());
+        return customerOptional.orElse(null);
+    }
+
+    @PutMapping(value = "/updateCustomer/{id}")
+    public int updateCustomer(@PathVariable long id, @RequestBody UpdateCustomerDTO response){
+        Customer customer = customerRepo.findById(id).get();
+        customer.setFirstName(response.firstName());
+        customer.setLastName(response.lastName());
+        customer.setBalance(response.balance());
+        customer.setEmail(response.email());
+        customerRepo.save(customer);
+        return 200;
+
+    }
+    @PutMapping(value = "/updateBalance/{id}")
+    public int updateBalance(@PathVariable long id, @RequestBody UpdateBalanceDTO response){
+        Customer customer = customerRepo.findById(id).get();
+        customer.setBalance(response.balance());
+        customerRepo.save(customer);
+        return 200;
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public int deleteUser(@PathVariable long id){
+        User user = userRepo.findById(id).get();
+        if (user != null) {
+            userRepo.delete(user);
+            return 200;
+        }
+        else
+            return 404;
+    }
+
 }

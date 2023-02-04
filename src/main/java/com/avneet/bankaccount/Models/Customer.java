@@ -4,6 +4,7 @@ package com.avneet.bankaccount.Models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.Locale;
 import java.util.Objects;
 
 @Entity
@@ -19,8 +20,8 @@ public class Customer {
     private String lastName;
     @Column
     private String email;
-    @Column
-    private double balance = 0;
+    @Column(name = "balance")
+    private double balance = 0.00;
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId
     @JsonIgnoreProperties("customer")
@@ -29,10 +30,10 @@ public class Customer {
 
     public Customer(){};
 
-    public Customer( String firstName, String lastName, String email) {
+    public Customer(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public long getId() {
@@ -59,6 +60,22 @@ public class Customer {
         this.user = user;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,6 +96,6 @@ public class Customer {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                '}';
+                ", balance=" + balance;
     }
 }
