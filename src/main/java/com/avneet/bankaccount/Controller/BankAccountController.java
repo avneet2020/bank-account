@@ -42,12 +42,19 @@ public class BankAccountController {
 
   @GetMapping("/login")
   public Customer login(@RequestBody LoginDTO response) {
-    Optional<Customer> customerOptional = Optional.ofNullable(
-      userRepository
-        .findByUsernameAndPassword(response.username(), response.password())
-        .getCustomer()
+    // Optional<Customer> customerOptional = Optional.ofNullable(
+    //   userRepository
+    //     .findByUsernameAndPassword(response.username(), response.password())
+    //     .getCustomer()
+    // );
+    Optional<User> userOptional = userRepository.findByUsernameAndPassword(
+      response.username(),
+      response.password()
     );
-    return customerOptional.orElse(null);
+    Customer result = userOptional.isPresent()
+      ? userOptional.get().getCustomer()
+      : null;
+    return result;
   }
 
   @PutMapping("/updateCustomer/{id}")
