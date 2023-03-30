@@ -2,7 +2,7 @@ package com.avneet.bankaccount.Utility;
 
 import java.text.DecimalFormat;
 
-public class Round {
+public class RoundUtil {
 
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
