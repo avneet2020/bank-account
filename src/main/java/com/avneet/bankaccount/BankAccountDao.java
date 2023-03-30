@@ -29,7 +29,6 @@ public class BankAccountDao {
             if (!resultSet.next()){
                 return null;
             }
-//          TODO: what happens if user does not exist
             String fname = resultSet.getString("fname");
             String lname = resultSet.getString("lname");
             double balance = resultSet.getDouble("balance");

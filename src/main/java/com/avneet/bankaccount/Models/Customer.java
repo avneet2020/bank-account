@@ -1,11 +1,10 @@
 package com.avneet.bankaccount.Models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-
-import java.util.Locale;
 import java.util.Objects;
+
+import org.springframework.data.annotation.Id;
 
 @Entity
 @Table
@@ -20,7 +19,7 @@ public class Customer {
     private String lastName;
     @Column
     private String email;
-    @Column(name = "balance")
+    @Column
     private double balance = 0.00;
     @OneToOne(cascade = CascadeType.ALL)
     @MapsId

@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table
 public class User {
 
-    @Id
+    @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(unique = true)
