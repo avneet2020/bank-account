@@ -30,10 +30,9 @@ public class BankAccountController {
   @PostMapping("/save")
   public int saveUser(@RequestBody SaveDTO response) {
     Customer customer = new Customer(
-      response.firstName(),
-      response.lastName(),
-      response.email()
-    );
+        response.firstName(),
+        response.lastName(),
+        response.email());
     User user = new User(response.username(), response.password(), customer);
     customer.setUser(user);
     userRepository.save(user);
@@ -42,26 +41,19 @@ public class BankAccountController {
 
   @GetMapping("/login")
   public Customer login(@RequestBody LoginDTO response) {
-    // Optional<Customer> customerOptional = Optional.ofNullable(
-    //   userRepository
-    //     .findByUsernameAndPassword(response.username(), response.password())
-    //     .getCustomer()
-    // );
     Optional<User> userOptional = userRepository.findByUsernameAndPassword(
-      response.username(),
-      response.password()
-    );
+        response.username(),
+        response.password());
     Customer result = userOptional.isPresent()
-      ? userOptional.get().getCustomer()
-      : null;
+        ? userOptional.get().getCustomer()
+        : null;
     return result;
   }
 
   @PutMapping("/updateCustomer/{id}")
   public int updateCustomer(
-    @PathVariable long id,
-    @RequestBody UpdateCustomerDTO response
-  ) {
+      @PathVariable long id,
+      @RequestBody UpdateCustomerDTO response) {
     Customer customer = customerRepository.findById(id).get();
     customer.setFirstName(response.firstName());
     customer.setLastName(response.lastName());
@@ -73,9 +65,8 @@ public class BankAccountController {
 
   @PutMapping("/updateBalance/{id}")
   public int updateBalance(
-    @PathVariable long id,
-    @RequestBody UpdateBalanceDTO response
-  ) {
+      @PathVariable long id,
+      @RequestBody UpdateBalanceDTO response) {
     Customer customer = customerRepository.findById(id).get();
     customer.setBalance(response.balance());
     customerRepository.save(customer);
@@ -88,6 +79,7 @@ public class BankAccountController {
     if (user != null) {
       userRepository.delete(user);
       return 200;
-    } else return 404;
+    } else
+      return 404;
   }
 }
