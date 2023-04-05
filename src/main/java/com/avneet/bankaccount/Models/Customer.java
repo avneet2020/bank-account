@@ -11,6 +11,7 @@ import org.springframework.data.annotation.Id;
 public class Customer {
 
     @Id
+    @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column

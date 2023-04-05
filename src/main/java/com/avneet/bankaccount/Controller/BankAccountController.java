@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class BankAccountController {
 
@@ -39,7 +39,7 @@ public class BankAccountController {
     return 200;
   }
 
-  @GetMapping("/login")
+  @PostMapping("/login")
   public Customer login(@RequestBody LoginDTO response) {
     Optional<User> userOptional = userRepository.findByUsernameAndPassword(
         response.username(),

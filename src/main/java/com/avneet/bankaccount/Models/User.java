@@ -9,6 +9,7 @@ import java.util.Objects;
 public class User {
 
     @org.springframework.data.annotation.Id
+    @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(unique = true)
