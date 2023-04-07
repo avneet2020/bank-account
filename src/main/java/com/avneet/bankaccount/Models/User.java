@@ -10,7 +10,7 @@ public class User {
 
     @org.springframework.data.annotation.Id
     @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(unique = true)
     private String username;

@@ -6,8 +6,11 @@ import com.avneet.bankaccount.Repository.*;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 @RestController
 public class BankAccountController {
 
@@ -40,14 +43,16 @@ public class BankAccountController {
   }
 
   @PostMapping("/login")
-  public Customer login(@RequestBody LoginDTO response) {
+  public ResponseEntity<Customer> login(@RequestBody LoginDTO response) {
     Optional<User> userOptional = userRepository.findByUsernameAndPassword(
         response.username(),
         response.password());
-    Customer result = userOptional.isPresent()
-        ? userOptional.get().getCustomer()
-        : null;
-    return result;
+    if (userOptional.isPresent()) {
+      Customer result = userOptional.get().getCustomer();
+      return ResponseEntity.ok(result);
+    } else {
+      return ResponseEntity.badRequest().build();
+    }
   }
 
   @PutMapping("/updateCustomer/{id}")
@@ -63,6 +68,8 @@ public class BankAccountController {
     return 200;
   }
 
+
+  @CrossOrigin(origins = "http://localhost:5174")
   @PutMapping("/updateBalance/{id}")
   public int updateBalance(
       @PathVariable long id,

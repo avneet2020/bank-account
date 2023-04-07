@@ -28,13 +28,21 @@ public class Customer {
     @JoinColumn(name = "id")
     private User user;
 
-    public Customer(){};
+    public Customer(){}
+
+    public Customer(String firstName, String lastName, String email, double balance) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email.toLowerCase();
+        this.balance = balance;
+    }
 
     public Customer(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email.toLowerCase();
     }
+
 
     public long getId() {
         return id;
@@ -51,6 +59,8 @@ public class Customer {
     public String getEmail() {
         return email;
     }
+
+    public double getBalance() {return balance;}
 
     public User getUser() {
         return user;

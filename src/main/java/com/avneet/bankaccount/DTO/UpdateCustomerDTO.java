@@ -1,6 +1,6 @@
 package com.avneet.bankaccount.DTO;
 
-import com.avneet.bankaccount.Utility.RoundUtil;
+import com.avneet.bankaccount.Utility.Utility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record UpdateCustomerDTO(
@@ -14,9 +14,9 @@ public record UpdateCustomerDTO(
             @JsonProperty(value = "balance") double balance,
             @JsonProperty(value = "email") String email) {
 
-        this.firstName = firstName.toLowerCase();
-        this.lastName = lastName.toLowerCase();
-        this.balance = RoundUtil.round(balance);
-        this.email = email.toLowerCase();
+        this.firstName = Utility.capitalizeFirstLetter(firstName);
+        this.lastName = Utility.capitalizeFirstLetter(lastName);
+        this.email = Utility.capitalizeFirstLetter(email);
+        this.balance = Utility.round(balance);
     }
 }

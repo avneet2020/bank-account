@@ -1,5 +1,6 @@
 package com.avneet.bankaccount.DTO;
 
+import com.avneet.bankaccount.Utility.Utility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record SaveDTO(
@@ -16,8 +17,8 @@ public record SaveDTO(
                    @JsonProperty(value = "email") String email) {
         this.username = username;
         this.password = password;
-        this.firstName = firstName.toLowerCase();
-        this.lastName = lastName.toLowerCase();
-        this.email = email.toLowerCase();
+        this.firstName = Utility.capitalizeFirstLetter(firstName);
+        this.lastName = Utility.capitalizeFirstLetter(lastName);
+        this.email = Utility.capitalizeFirstLetter(email);
     }
 }
