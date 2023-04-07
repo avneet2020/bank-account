@@ -1,0 +1,25 @@
+.entered{
+    background-color: #242424;
+    padding: 1rem;
+    border-radius: 20px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    margin: 0 auto;
+    align-items: center;
+}
+h1{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto;
+    padding-bottom: 1rem;
+    text-align: center;
+}
+.bottom-row{
+    display: flex;
+}
+h3{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 0 auto auto;
+    text-align: right;
+}
