@@ -59,6 +59,7 @@ function Register({ loggedIn, screenSwitch, url }: Props) {
       body: JSON.stringify(body),
     }).catch((err) => {
       console.error("Error during fetch", err);
+      console.error(err);
     });
     if (information instanceof Response && information.ok) {
       attemptLogin(username, password);

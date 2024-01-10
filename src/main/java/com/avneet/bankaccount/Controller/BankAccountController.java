@@ -10,7 +10,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin(origins = "http://localhost:5174")
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 public class BankAccountController {
 
@@ -32,6 +33,7 @@ public class BankAccountController {
 
   @PostMapping("/save")
   public int saveUser(@RequestBody SaveDTO response) {
+    // Hash the password
     Customer customer = new Customer(
         response.firstName(),
         response.lastName(),
@@ -68,8 +70,6 @@ public class BankAccountController {
     return 200;
   }
 
-
-  @CrossOrigin(origins = "http://localhost:5174")
   @PutMapping("/updateBalance/{id}")
   public int updateBalance(
       @PathVariable long id,

@@ -52,7 +52,7 @@ function Welcome({ userInfo, url }: Props) {
       balance: (userInfo.balance + amount).toString(),
     };
 
-    const information: Response = await fetch(
+    const information: void = await fetch(
       `${url}updateBalance/${userInfo.id}`,
       {
         method: "PUT",
@@ -61,15 +61,19 @@ function Welcome({ userInfo, url }: Props) {
         },
         body: JSON.stringify(body),
       }
-    ).catch((err) => {
-      setErrorValue("Error during fetch");
-      console.error("Error during fetch", err);
-    });
-    if (information instanceof Response && information.ok) {
-      setProcessingButtonToDefault();
-      setSuccessfulTransaction(true);
-      userInfo.balance += amount;
-    }
+    )
+      .then((res) => res.json())
+      .then((response) => {
+        if (response) {
+          setProcessingButtonToDefault();
+          setSuccessfulTransaction(true);
+          userInfo.balance += amount || 0;
+        }
+      })
+      .catch((err) => {
+        setErrorValue("Error during fetch");
+        console.error("Error during fetch", err);
+      });
   };
 
   return (
