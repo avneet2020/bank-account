@@ -11,5 +11,4 @@ I wrote this code using TypeScript and had 3 major components.
 Login, Register, Welcome.
 For styling, I used BootStrap.
 
-If you have any questions, please feel free to email me at avneetos1996@gmail.com
 
